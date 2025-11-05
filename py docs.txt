@@ -1,0 +1,124 @@
+curl -X POST http://website1.local.com/jsonapi/node/article ^
+  -H "Content-Type: application/vnd.api+json" ^
+  -u Pranil:Pranil@8998# ^
+  -d "{""data"":{""type"":""node--article"",""attributes"":{""title"":""API Test Blog"",""body"":{""value"":""<p>This blog was created using API from CMD!</p>"",""format"":""basic_html""}}}}"
+
+
+
+
+
+curl -X POST "http://website1.local.com/jsonapi/node/article" ^
+  -H "Content-Type: application/vnd.api+json" ^
+  -u "Pranil:Pranil@8998#" ^
+  -d "{
+    \"data\": {
+      \"type\": \"node--article\",
+      \"attributes\": {
+        \"title\": \"API Test Blog\",
+        \"body\": {
+          \"value\": \"<p>This blog was created using API!</p>\",
+          \"format\": \"basic_html\"
+        }
+      }
+    }
+  }"
+
+
+
+
+Steps for Blog Automation using Python
+Step 1: Log in to Local Drupal
+Step 2. Install JSON:API Module. (Clear Cache vendor/bin/drush/ cr)
+Step 3. Install HTTP Basic Authentication Module. (Enable Module)
+Step 4. Confirm JSON:API Works (http://website1.local.com/jsonapi)
+Step 5. Find Your Blog Content Type Endpoint  (http://website1.local.com/jsonapi/node/blog_posts)
+Step 6. Check Permissions
+
+Now python script
+Step 1: Step 1: Where to Save the Python File (C:\Users\Pranil.Bamane\OneDrive - GEP\Desktop\python)
+Step 2: Install Python (if not already), python --version OR py --version
+Step 3: Install Dependencies
+
+
+Now python script for extracting content from word file.
+Install Extra Dependency
+1. pip install python-docx
+ 
+
+
+Completed modules
+http://website1.local.com/jsonapi/taxonomy_term/blog_tags 
+
+C:\xampp\htdocs\corp_website_d-10\config\default\field.field.node.blog_posts.field_blog_categories.yml
+http://website1.local.com/jsonapi/taxonomy_term/blog_categories
+
+
+http://website1.local.com/jsonapi/taxonomy_term/knowledge_bank
+
+
+
+Blog url method
+give permission to authorize user (Authenticated user) goto user>permission   http://website1.local.com/admin/people/permissions  (Blog Posts: Create new content)
+
+
+pause auto url path in http://website1.local.com/admin/config/search/path/patterns/blog_posts?destination=/admin/config/search/path/patterns
+
+
+1️⃣ Confirm the Text Format
+
+In Drupal go to:
+
+/admin/structure/types/manage/blog_posts/fields
+
+Open Body → Edit → Text processing
+Make sure “Text format” is set to Full HTML (or a format that permits <div>, <a>, classes, etc.).
+
+2️⃣ Send the Correct format in the API
+
+
+permissions added
+
+
+How to run locally (quick)
+1. Put create_blog_via_api_with_docx_refactored.py and app.py in the same folder.
+
+2. Create a virtualenv and install deps:
+Open git bash in same folder (C:\Users\Pranil.Bamane\OneDrive - GEP\Desktop\python\blogautomation)
+python -m venv .venv
+.venv/Scripts/activate   # Windows
+pip install flask python-docx lxml requests
+
+3. Run the Flask app:
+python app.py
+
+4. Open in browser: http://127.0.0.1:8000/ and try uploading a doc and images.
+
+
+
+install pip install pillow
+for reCAPTCHA feature
+
+
+
+C:\Users\Pranil.Bamane\OneDrive - GEP\Desktop\python\blogautomation>pip list
+Package            Version
+------------------ --------
+blinker            1.9.0
+certifi            2025.8.3
+charset-normalizer 3.4.3
+click              8.3.0
+colorama           0.4.6
+Flask              3.1.2
+idna               3.10
+itsdangerous       2.2.0
+Jinja2             3.1.6
+lxml               6.0.1
+MarkupSafe         3.0.2
+pillow             11.3.0
+pip                25.2
+python-docx        1.2.0
+python-dotenv      1.1.1
+requests           2.32.5
+typing_extensions  4.15.0
+urllib3            2.5.0
+Werkzeug           3.1.3

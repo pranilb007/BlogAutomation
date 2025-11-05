@@ -1,0 +1,8 @@
+flask
+python-docx
+requests
+lxml
+python-dotenv
+Pillow
+colorama
+werkzeug

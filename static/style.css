@@ -1,0 +1,489 @@
+/* Blog Automation Tool Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient( to right, #8c43ff 0%, #0565ff 130%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+h1 {
+    color: #0565ff;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px dashed #ddd;
+    border-radius: 10px;
+    background: #fafafa;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+input[type="file"]:hover {
+    border-color: #667eea;
+    background: #f0f4ff;
+}
+
+input[type="file"]:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient( to right, #0565ff 0%, #8c43ff 130% );
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.messages {
+    margin-top: 20px;
+}
+
+.messages ul {
+    list-style: none;
+}
+
+.messages li {
+    background: #f8f9fa;
+    border-left: 4px solid #28a745;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    color: #333;
+    font-size: 14px;
+    animation: slideIn 0.3s ease;
+}
+
+.messages li:last-child {
+    margin-bottom: 0;
+}
+
+/* Error messages */
+.messages li[style*="color: red"], 
+.messages li:contains("Failed"),
+.messages li:contains("Error"),
+.messages li:contains("Exception") {
+    border-left-color: #dc3545;
+    background: #fff5f5;
+    color: #721c24;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.file-info {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+.description {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+}
+
+/* Custom file upload styling */
+.file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+}
+
+.file-input-wrapper input[type="file"] {
+    position: absolute;
+    left: -9999px;
+}
+
+.file-input-label {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px dashed #ddd;
+    border-radius: 10px;
+    background: #fafafa;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+    color: #666;
+}
+
+.file-input-label:hover {
+    border-color: #667eea;
+    background: #f0f4ff;
+    color: #667eea;
+}
+
+.upload-icon {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+
+/* Login Form Styles - Add these to your existing style.css */
+
+.login-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 450px;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.login-container h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 600;
+    background: linear-gradient(to right, #0565ff 0%, #8c43ff 130%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.login-form-group {
+    margin-bottom: 10px;
+}
+
+.login-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.login-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px dashed #ddd;
+    border-radius: 10px;
+    background: #fafafa;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    color: #333;
+}
+
+.login-input:focus {
+    outline: none;
+    border-color: #667eea;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.login-input::placeholder {
+    color: #999;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(to right, #0565ff 0%, #8c43ff 130%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+.login-messages {
+    margin-top: 20px;
+}
+
+.login-messages ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.login-messages li {
+    background: #fff5f5;
+    border-left: 4px solid #dc3545;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    color: #721c24;
+    font-size: 14px;
+    animation: slideIn 0.3s ease;
+}
+
+.login-messages li:last-child {
+    margin-bottom: 0;
+}
+
+/* Success message variant */
+.login-messages li.success {
+    background: #f8f9fa;
+    border-left-color: #28a745;
+    color: #155724;
+}
+
+/* Icon styling for inputs */
+.login-input-wrapper {
+    position: relative;
+}
+
+.login-input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 16px;
+}
+
+.login-input-wrapper .login-input {
+    padding-left: 45px;
+}
+
+/* Forgot password link style */
+.login-forgot-link {
+    display: block;
+    text-align: right;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #667eea;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-forgot-link:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 25px;
+        margin: 10px;
+    }
+
+    .login-container h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .login-form-group {
+        margin-bottom: 10px;
+    }
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-4{
+    margin-top: 10px;
+}
+
+.error-message {
+    color: #ff4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+    min-height: 1.2rem;
+}
+
+.login-input.invalid {
+    border-color: #ff4444;
+}
+
+.captcha-box {
+    display: flex; 
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px; 
+}
+.captcha-box img { border: 1px solid #ccc; height: 50px; }
+.refresh-btn { cursor: pointer; font-size: 18px; color: #007BFF; background: none; border: none; }
+
+
+.result-container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .success-header {
+            text-align: center;
+            color: #28a745;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+        }
+        .error-header {
+            text-align: center;
+            color: #dc3545;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #495057;
+        }
+        .info-value {
+            color: #212529;
+        }
+        .error-box {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .error-item {
+            margin-bottom: 10px;
+        }
+        .error-title {
+            font-weight: bold;
+            color: #721c24;
+        }
+        .error-detail {
+            color: #856404;
+            font-size: 0.9em;
+            margin-left: 15px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }

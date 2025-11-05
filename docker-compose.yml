@@ -1,0 +1,18 @@
+# version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: blog_automation_web
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./uploads:/app/uploads
+    env_file:
+      - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    # The Dockerfile already runs `python app.py`, so no command override is required
+
+# You can add more services (databases, reverse proxies) here if needed.
