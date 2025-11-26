@@ -7,6 +7,18 @@ from dotenv import load_dotenv
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import create_blog_via_api_with_docx_refactored as importer
 
+import subprocess
+import threading
+import updater
+
+# Run updater in background
+def background_update_check():
+    if updater.check_for_update():
+        print("Update downloaded, will apply on next restart.")
+
+threading.Thread(target=background_update_check, daemon=True).start()
+
+
 # --- Load .env ---
 load_dotenv()
 DRUPAL_USERNAME = os.getenv("DRUPAL_USERNAME")
@@ -316,5 +328,18 @@ def logout():
     flash("Logged out successfully")
     return redirect("/")
 
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=8000, debug=True)
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    import webbrowser
+    import threading
+    import time
+
+    def open_browser():
+        time.sleep(1)
+        webbrowser.open("http://127.0.0.1:8000")
+
+    threading.Thread(target=open_browser).start()
+
+    app.run(host="127.0.0.1", port=8000, debug=False)
