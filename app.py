@@ -101,7 +101,7 @@ LOGIN_HTML = """
 </head>
 <body>
     <div class="login-container">
-        <h1>Login</h1>
+        <h1>Log_in </h1>
        <form method="post" onsubmit="return validateLoginForm()">
     <div class="login-form-group">
         <label for="username">Username</label>
