@@ -6,7 +6,7 @@ import time
 import shutil
 import subprocess
 
-VERSION_FILE_URL = "https://raw.githubusercontent.com/pranilb007/BlogAutomation/main/version.json"
+VERSION_FILE_URL = "https://raw.githubusercontent.com/pranilb007/BlogAutomation/main/updater/version.json"
 LOCAL_VERSION = "1.0.0"
 APP_EXE = "Blogautomation-.exe"
 DOWNLOAD_TMP = "update_tmp.exe"

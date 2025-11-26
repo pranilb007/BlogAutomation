@@ -1,4 +1,5 @@
 {
   "version": "1.0.0",
-  "download_url": "https://github.com/<username>/BlogAutomation/releases/download/v1.0.0/BlogAutomator.exe"
+  "download_url": "https://github.com/pranilb007/BlogAutomation/releases/download/v1.0.0/BlogAutomation.exe",
+  "release_notes": "Initial production release with UI improvements."
 }
