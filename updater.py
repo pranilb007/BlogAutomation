@@ -14,9 +14,14 @@ DOWNLOAD_TMP = "update_tmp.exe"
 def check_for_update():
     try:
         r = requests.get(VERSION_FILE_URL, timeout=5)
-        data = r.json()
-        latest_version = data["version"]
-        download_url = data["download_url"]
+        r.raise_for_status()  # ensure HTTP 200
+
+        # Decode safely and strip BOM / whitespace
+        text = r.content.decode('utf-8-sig').strip()
+        data = json.loads(text)
+
+        latest_version = data.get("version")
+        download_url = data.get("download_url")
 
         if latest_version != LOCAL_VERSION:
             print(f"New version available: {latest_version}")
@@ -28,13 +33,19 @@ def check_for_update():
         return False
 
 def download_update(url):
-    r = requests.get(url, stream=True)
-    with open(DOWNLOAD_TMP, "wb") as f:
-        shutil.copyfileobj(r.raw, f)
+    try:
+        r = requests.get(url, stream=True)
+        r.raise_for_status()
+        with open(DOWNLOAD_TMP, "wb") as f:
+            shutil.copyfileobj(r.raw, f)
+        print("Download complete")
+    except Exception as e:
+        print("Download failed:", e)
 
 def apply_update():
     try:
-        os.remove(APP_EXE)
+        if os.path.exists(APP_EXE):
+            os.remove(APP_EXE)
         os.rename(DOWNLOAD_TMP, APP_EXE)
         print("Updated successfully!")
         return True
