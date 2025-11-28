@@ -101,7 +101,7 @@ LOGIN_HTML = """
 </head>
 <body>
     <div class="login-container">
-        <h1>Log_in </h1>
+        <h1>Log_In</h1>
        <form method="post" onsubmit="return validateLoginForm()">
     <div class="login-form-group">
         <label for="username">Username</label>
@@ -166,7 +166,7 @@ FORM_HTML = """
 </head>
 <body>
     <div class="container">
-        <h1>Blog Automation Tool</h1>
+        <h1>BlogFlow - Blog Automation Tool</h1>
         <p class="description">Upload your .docx file and images to create your blog post</p>
 
         <form method="post" enctype="multipart/form-data">
