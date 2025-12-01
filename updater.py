@@ -10,7 +10,7 @@ import subprocess
 # CONFIG
 # -----------------------------
 VERSION_FILE_URL = "https://raw.githubusercontent.com/pranilb007/BlogAutomation/main/updater/version.json"
-LOCAL_VERSION = "1.0.5"
+LOCAL_VERSION = "1.0.6"
 APP_EXE = "BlogAutomation.exe"
 DOWNLOAD_TMP = "BlogAutomation_new.exe"
 UPDATER_LAUNCHER = "update_launcher.py"
