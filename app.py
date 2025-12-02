@@ -167,7 +167,7 @@ FORM_HTML = """
 <body>
     <div class="container">
         <h1>BlogFlow - Blog Automation Tool</h1>
-        <p class="description">Upload your blog’s .docx file and images to create your blog post</p>
+        <p class="description">Upload your blog’s .docx file & images to create blog post</p>
 
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
