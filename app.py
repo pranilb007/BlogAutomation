@@ -101,7 +101,7 @@ LOGIN_HTML = """
 </head>
 <body>
     <div class="login-container">
-        <h1>Log_In</h1>
+        <h1>BlogFlow LogIn</h1>
        <form method="post" onsubmit="return validateLoginForm()">
     <div class="login-form-group">
         <label for="username">Username</label>
@@ -161,13 +161,13 @@ FORM_HTML = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GEP - Blog Automation - Upload</title>
+    <title>GEP - Blog Automation - Upload File</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
         <h1>BlogFlow - Blog Automation Tool</h1>
-        <p class="description">Upload your blog’s .docx file & images to create blog post</p>
+        <p class="description">Upload your blog’s .docx file and images to create blog post</p>
 
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
