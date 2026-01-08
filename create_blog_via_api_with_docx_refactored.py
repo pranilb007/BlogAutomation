@@ -459,7 +459,7 @@ def format_blog_response(resp):
     return result
 
 
-# CLI support
+# CLI supports
 if __name__ == "__main__":
     import argparse
     import json
