@@ -3,33 +3,65 @@ try:
     from colorama import init, Fore, Style
     init(autoreset=True)
 except ImportError:
-    # fallback if colorama not installed
     class _Dummy:
         def __getattr__(self, _):
             return ""
     Fore = _Dummy()
     Style = _Dummy()
 
-# create_blog_via_api_with_docx.py
+# ------------------------------
+# Imports
+# ------------------------------
+import requests
+import docx
+import re
+import os
 from lxml import etree
-import requests, docx, re, os
 from requests.auth import HTTPBasicAuth
 from docx.oxml.ns import qn
 from dotenv import load_dotenv
 
-# ---- CONFIG: adjust as needed ----
-# base_url  = "http://website1.local.com/"
-# username  = "Pranil"
-# password  = "Pranil@8998#"
-# password = "bUhT$$7Suy2+TeTW"
+# ------------------------------
+# Load environment variables
+# ------------------------------
+load_dotenv()
 
-load_dotenv()  
+DRUPAL_BASE_URL = os.getenv("DRUPAL_BASE_URL", "").rstrip("/")
+DRUPAL_USERNAME = os.getenv("DRUPAL_USERNAME")
+DRUPAL_PASSWORD = os.getenv("DRUPAL_PASSWORD")
 
-base_url = os.getenv("DRUPAL_BASE_URL")
-username = os.getenv("DRUPAL_USERNAME")
-password = os.getenv("DRUPAL_PASSWORD")
-auth = HTTPBasicAuth(username, password)
-headers = {"Content-Type": "application/vnd.api+json"}
+if not all([DRUPAL_BASE_URL, DRUPAL_USERNAME, DRUPAL_PASSWORD]):
+    raise RuntimeError("❌ Missing Drupal environment variables")
+
+auth = HTTPBasicAuth(DRUPAL_USERNAME, DRUPAL_PASSWORD)
+
+headers = {
+    "Content-Type": "application/vnd.api+json",
+    "Accept": "application/vnd.api+json"
+}
+
+# ------------------------------
+# Helpers
+# ------------------------------
+def slugify_title(title: str) -> str:
+    title = title.lower()
+    title = re.sub(r"[^a-z0-9\s-]", "", title)
+    title = re.sub(r"\s+", "-", title.strip())
+    return title
+
+def fetch_live_alias(node_uuid: str, headers: dict):
+    try:
+        url = f"{DRUPAL_BASE_URL}/jsonapi/node/blog_posts/{node_uuid}"
+        r = requests.get(url, headers=headers, timeout=10)
+        r.raise_for_status()
+        data = r.json()
+        return data["data"]["attributes"]["path"]["alias"]
+    except Exception as e:
+        print("[ALIAS FETCH FAILED]", e)
+        return None
+
+
+
 
 # --- Replace with real UUIDs ---
 CATEGORY_UUIDS = {
@@ -98,14 +130,14 @@ KB_UUIDS = {
 
 # ---------- helpers ----------
 def ensure_tag(tag_name):
-    r = requests.get(f"{base_url}/jsonapi/taxonomy_term/blog_tags?filter[name]={tag_name}",
+    r = requests.get(f"{DRUPAL_BASE_URL}/jsonapi/taxonomy_term/blog_tags?filter[name]={tag_name}",
                      auth=auth, headers=headers)
     data = r.json()
     if data.get("data"):
         return data["data"][0]["id"]
     payload = {"data": {"type": "taxonomy_term--blog_tags",
                         "attributes": {"name": tag_name}}}
-    r = requests.post(f"{base_url}/jsonapi/taxonomy_term/blog_tags",
+    r = requests.post(f"{DRUPAL_BASE_URL}/jsonapi/taxonomy_term/blog_tags",
                       json=payload, auth=auth, headers=headers)
     r.raise_for_status()
     return r.json()["data"]["id"]
@@ -163,7 +195,7 @@ def upload_image(path, field_endpoint):
     if not path or not os.path.exists(path):
         raise FileNotFoundError(f"Image not found: {path}")
     fname = os.path.basename(path)
-    url   = f"{base_url}/jsonapi/node/blog_posts/{field_endpoint}"
+    url   = f"{DRUPAL_BASE_URL}/jsonapi/node/blog_posts/{field_endpoint}"
     headers_img = {
         "Content-Type": "application/octet-stream",
         "Content-Disposition": f'file; filename="{fname}"'
@@ -339,7 +371,7 @@ def create_blog(docx_path, images_dir):
         }
     }
 
-    r = requests.post(f"{base_url}/jsonapi/node/blog_posts",
+    r = requests.post(f"{DRUPAL_BASE_URL}/jsonapi/node/blog_posts",
                       json=payload, auth=auth, headers=headers)
     # return response for caller
     return r
@@ -377,6 +409,8 @@ def format_blog_response(resp):
             result["data"]["raw_response"] = resp.text[:500]
         return result
     
+
+    
     # Success cases
     result["success"] = True
     try:
@@ -384,16 +418,24 @@ def format_blog_response(resp):
         
         # Check if node was created successfully
         if "data" in data and isinstance(data["data"], dict):
-            node = data["data"]
-            attrs = node.get("attributes", {})
+            node_data = data["data"]
+            attrs = node_data.get("attributes", {})
+
+            title = attrs.get("title", "N/A")
+            node_id = node_data.get("id")
+
+            live_alias = fetch_live_alias(
+                node_id,
+                headers=headers
+            )
             
             result["message"] = "Blog created successfully"
             result["data"] = {
-                "title": attrs.get('title', 'N/A'),
-                "node_id": node.get('id', 'N/A'),
-                "status": 'Published' if attrs.get('status') else 'Draft',
-                "created": attrs.get('created', 'N/A'),
-                "url_path": attrs.get('path', {}).get('alias', 'N/A') if 'path' in attrs else 'N/A'
+                "title": title,
+                "node_id": node_id,
+                "status": "Published" if attrs.get("status") else "Draft",
+                "created": attrs.get("created", "N/A"),
+                "url_path": live_alias or "Alias not available yet"
             }
             
         elif "data" in data and isinstance(data["data"], list):
@@ -406,7 +448,9 @@ def format_blog_response(resp):
                 })
         else:
             result["message"] = "Request completed"
-            result["data"]["summary"] = {k: type(v).__name__ for k, v in data.items()}
+            result["data"]["summary"] = {
+                k: type(v).__name__ for k, v in data.items()
+            }
     
     except Exception as e:
         result["message"] = f"Warning: Could not parse response - {str(e)}"
